@@ -6,10 +6,10 @@ if [ ! -f /var/www/html/wp-config.php ]; then
 	echo "Configuring Wordpress ..."
 	
 	wp config create \
-		--dbname=your_database_name \
-		--dbuser=your_database_user \
-		--dbpass=your_database_password \
-		--dbhost=your_database_host \
+		--dbname=$SQL_DATABASE \
+		--dbuser=$SQL_USER \
+		--dbpass=$SQL_PASSWORD \
+		--dbhost=mariadb:3306 \
 		--path=/var/www/html \
 		--allow-root
 else
