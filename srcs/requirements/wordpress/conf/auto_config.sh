@@ -2,6 +2,10 @@
 
 sleep 10
 
+cd /var/www/html
+curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -o /usr/local/bin/wp
+chmod +x /usr/local/bin/wp
+
 if [ ! -f /var/www/html/wp-config.php ]; then
 	echo "Configuring Wordpress ..."
 	
