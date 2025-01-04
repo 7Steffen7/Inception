@@ -15,6 +15,13 @@ RUN apt-get update && apt-get upgrade && \
 	# chmod +x wp-cli.phar && mv wp-cli.phar /usr/local/bin/wp
 
 # COPY conf/wp-config.php /var/www/wordpress/wp-config.php
-COPY www.conf /etc/php/7.4/fpm/pool.d/www.conf
+COPY /conf/www.conf /etc/php/7.4/fpm/pool.d/www.conf
+COPY /conf/auto_config.sh /usr/local/bin/
 
-WORKDIR /var/www/wordpress
+RUN chmod +x /usr/local/bin/auto_config.sh
+
+WORKDIR /var/www/html
+
+EXPOSE 9000
+
+CMD ["auto_config.sh"]
