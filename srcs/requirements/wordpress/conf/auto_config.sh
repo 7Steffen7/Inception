@@ -8,7 +8,7 @@ if [ ! -d /run/php ]; then
 fi
 
 # Wait for Database/mariaDB
-echo "Waiting for database to be start..."
+echo "Waiting for database to start..."
 while ! mysqladmin ping -h"mariadb:3306" --silent; do
 	echo "waiting..."
 	sleep 2
