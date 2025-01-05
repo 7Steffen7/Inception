@@ -1,17 +1,30 @@
 #!/bin/bash
+set -e
 
-# echo "HelloWorld"
-
-# startup mysq;
+echo "Setting up MariaDB directories..."
 mkdir -p /var/run/mysqld
 chown -R mysql:mysql /var/run/mysqld
-# service mysql start;
+
+echo "Starting MariaDB..."
 exec mysqld_safe &
 
+echo "Waiting for MariaDB to start..."
 until mysqladmin ping --silent; do
-	echo "Waiting for MariaDB to start..."
+	echo "Waiting..."
 	sleep 2
 done
+
+# if ! mysql -
+
+# startup mysq;
+# mkdir -p /var/run/mysqld
+# chown -R mysql:mysql /var/run/mysqld
+# service mysql start;
+
+# until mysqladmin ping --silent; do
+# 	echo "Waiting for MariaDB to start..."
+# 	sleep 2
+# done
 # create table
 mysql -e "CREATE DATABASE IF NOT EXISTS \`${SQL_DATABASE}\`;"
 

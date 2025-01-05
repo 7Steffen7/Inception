@@ -25,4 +25,4 @@ WORKDIR /var/www/html
 EXPOSE 9000
 
 # CMD ["auto_config.sh"]
-CMD ["sh", "usr/local/bin/auto_config.sh"]
+CMD ["sh", "/usr/local/bin/auto_config.sh"]
