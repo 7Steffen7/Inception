@@ -7,9 +7,14 @@ if [ ! -d /run/php ]; then
 	mkdir -p /run/php
 fi
 
+if [ ! -d "/var/www/html" ]; then
+    mkdir -p /var/www/html
+fi
+chown -R www-data:www-data /var/www/html
+
 # Wait for Database/mariaDB
 echo "Waiting for database to start..."
-while ! mysqladmin ping -h"mariadb:3306" --silent; do
+while ! mysqladmin -u "${DB_USER}" -p"${DB_PASS}" ping -h"${DB_HOST}" --silent; do
 	echo "waiting..."
 	sleep 2
 done
@@ -36,7 +41,7 @@ if [ ! -f "/var/www/html/wp-config.php" ]; then
 	--dbname=$DB_NAME \
 	--dbuser=$DB_USER \
 	--dbpass=$DB_PASS \
-	--dphost="mariadb:3306" \
+	--dbhost=$DB_HOST \
 	--allow-root
 fi
 
@@ -57,6 +62,7 @@ if ! wp core is-installed --allow-root >/dev/null 2>&1; then
 	--allow-root
 fi
 
+echo "Test Wordpress"
 php-fpm7.4 -F
 
 
