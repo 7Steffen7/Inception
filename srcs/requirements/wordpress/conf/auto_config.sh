@@ -62,6 +62,8 @@ if ! wp core is-installed --allow-root >/dev/null 2>&1; then
 	--allow-root
 fi
 
+# wp install theme astra 
+
 echo "Test Wordpress"
 php-fpm7.4 -F
 
