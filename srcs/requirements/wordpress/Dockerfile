@@ -1,6 +1,6 @@
 FROM debian:bullseye-slim
 
-RUN apt-get update \
+RUN apt-get update && \
 	apt-get -y install \
 	--no-install-recommends \
 	curl \
