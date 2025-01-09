@@ -3,9 +3,10 @@ FROM debian:bullseye-slim
 
 RUN apt update && \
 	apt -y install \
-	nginx\
-	curl\
-	openssl && \
+	nginx \
+	curl \
+	openssl \
+	ca-certificates && \
 	mkdir -p \
 	/etc/nginx/ssl \
 	/var/run/nginx && \
