@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# sleep 10
-
 # create PHP runtime directory
 if [ ! -d /run/php ]; then
 	mkdir -p /run/php
@@ -14,7 +12,8 @@ chown -R www-data:www-data /var/www/html
 
 # Wait for Database/mariaDB
 echo "Waiting for database to start..."
-while ! mysqladmin -u "${DB_USER}" -p"${DB_PASS}" ping -h"${DB_HOST}" --silent; do
+# while ! mysqladmin -u "${DB_USER}" -p"${DB_PASS}" ping -h"${DB_HOST}" --silent; do
+until nc -z "${DB_HOST}" 3306; do
 	echo "waiting..."
 	sleep 2
 done
@@ -62,30 +61,6 @@ if ! wp core is-installed --allow-root >/dev/null 2>&1; then
 	--allow-root
 fi
 
-# wp install theme astra 
 
 echo "Test Wordpress"
 php-fpm7.4 -F
-
-
-# cd /var/www/html
-# curl https://raw.githubusercontent.com/wp-cli/builds/gh-pages/phar/wp-cli.phar -o /usr/local/bin/wp
-# chmod +x /usr/local/bin/wp
-
-# # source https://developer.wordpress.org/cli/commands/config/
-# # wp config <command>
-# # generates and reads the wp-config.php file
-
-# if [ ! -f /var/www/html/wp-config.php ]; then
-# 	echo "Configuring Wordpress ..."
-	
-# 	wp config create \
-# 		--dbname=$SQL_DATABASE \
-# 		--dbuser=$SQL_USER \
-# 		--dbpass=$SQL_PASSWORD \
-# 		--dbhost=mariadb:3306 \
-# 		--path=/var/www/html \
-# 		--allow-root
-# else
-# 	echo "wp-config.php already exists. Skipping configuration."
-# fi

@@ -1,9 +1,16 @@
-FROM debian:bullseye
+FROM debian:bullseye-slim
 
 
 RUN apt update && \
-	apt install -y nginx vim curl openssl && \
-	mkdir -p /etc/nginx/ssl /var/run/nginx
+	apt -y install \
+	nginx\
+	curl\
+	openssl && \
+	mkdir -p \
+	/etc/nginx/ssl \
+	/var/run/nginx && \
+	apt-get clean && \
+	rm -rf /var/lib/apt/lists/*
 
 RUN openssl req -x509 -nodes \
 	-out /etc/nginx/ssl/inception.crt \
