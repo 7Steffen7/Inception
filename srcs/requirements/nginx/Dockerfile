@@ -16,12 +16,18 @@ RUN apt update && \
 RUN openssl req -x509 -nodes \
 	-out /etc/nginx/ssl/inception.crt \
 	-keyout /etc/nginx/ssl/inception.key \
-	-subj "/C=DE/ST=BW/L=Heilbronn/O=42HN/OU=student/CN=sparth.42.fr"
+	-subj "/C=DE/ST=BW/L=Heilbronn/O=42HN/OU=student/CN=sparth.42.fr" && \
+	chmod 644 /etc/nginx/ssl/inception.crt && \
+	chmod 600 /etc/nginx/ssl/inception.key && \
+	chown root:root /etc/nginx/ssl/inception.*
 
 RUN chmod 755 /var/www/html && \
 	chown -R www-data:www-data /var/www/html
 
 COPY conf/nginx.conf /etc/nginx/nginx.conf
+
+RUN chmod 644 /etc/nginx/nginx.conf && \
+	chown root:root /etc/nginx/nginx.conf
 
 CMD ["nginx", "-g", "daemon off;"]
 
