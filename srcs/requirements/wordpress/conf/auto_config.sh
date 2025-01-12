@@ -62,5 +62,5 @@ if ! wp core is-installed --allow-root >/dev/null 2>&1; then
 fi
 
 
-echo "Test Wordpress"
+echo "Wordpress setup complete"
 php-fpm7.4 -F
